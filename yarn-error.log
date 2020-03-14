@@ -1,0 +1,46 @@
+Arguments: 
+  /Users/romeoenso/.nvm/versions/node/v12.11.0/bin/node /usr/local/Cellar/yarn/1.19.2/libexec/bin/yarn.js add @hapi
+
+PATH: 
+  /Users/romeoenso/.nvm/versions/node/v12.11.0/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.19.2
+
+Node version: 
+  12.11.0
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/@hapi: Request "https://registry.yarnpkg.com/@hapi" returned a 405
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.19.2/libexec/lib/cli.js:66936:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.19.2/libexec/lib/cli.js:140586:22)
+      at Request.emit (events.js:210:5)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.19.2/libexec/lib/cli.js:141558:10)
+      at Request.emit (events.js:210:5)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.19.2/libexec/lib/cli.js:141480:12)
+      at Object.onceWrapper (events.js:299:28)
+      at IncomingMessage.emit (events.js:215:7)
+      at endReadableNT (_stream_readable.js:1183:12)
+      at processTicksAndRejections (internal/process/task_queues.js:80:21)
+
+npm manifest: 
+  {
+    "name": "nodejs-hapijs",
+    "version": "1.0.0",
+    "description": "",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "author": "",
+    "license": "ISC"
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile
