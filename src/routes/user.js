@@ -18,9 +18,9 @@ exports.userRoutes = [
   {
     method: 'GET',
     path: '/users',
-    handler: () => {
-      return User.findAll()
-    }
+    handler: async (request) => {
+      return await User.findAll();
+    },
   }, {
     method: 'POST',
     path: '/users',
