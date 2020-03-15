@@ -13,19 +13,12 @@ exports.hotelRoutes = [{
   }, {
     method: 'POST',
     path: '/hotels',
-    // options: {
-    //   validate: {
-    //     payload: hotelHelper.validateHotelPayload
-    //   }
-    // },
     options: {
-      // auth: false,
       validate: {
         payload: hotelHelper.validateHotelPayload
       }
     },
     handler: async (request) => {
-      return request.payload;
       return await Hotels.create(request.payload);
     }
   }
