@@ -23,9 +23,6 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.INTEGER(1),
       defaultValue: "0"
     },
-    hotelChainId: {
-      type: DataTypes.INTEGER,
-    }
   }, {
     indexes: [ { fields: [ 'email' ] } ]
   }, {

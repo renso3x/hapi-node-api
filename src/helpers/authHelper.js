@@ -5,6 +5,7 @@ const models = require('../../models');
 const userHelper = require('./userHelper');
 
 const User = models.User;
+const JWT_KEY = process.env.JWT_KEY;
 
 exports.login = async (email, password) => {
   const isExist = await userHelper.findUserDetailsByEmail(email);

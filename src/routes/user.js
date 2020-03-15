@@ -1,22 +1,22 @@
 const bcrypt = require('bcrypt');
-const Joi = require('@hapi/joi');
-const Boom = require('@hapi/boom');
 
 const models = require('../../models');
 const userHelper = require('../helpers/userHelper');
+const requestHelper = require('../helpers/request');
 
 const User = models.User;
 
 exports.userRoutes = [{
     method: 'GET',
     path: '/users',
-    handler: async (request) => {
+    handler: async () => {
       return await User.findAll();
     },
   }, {
     method: 'POST',
     path: '/users',
     options: {
+      // auth: false,
       validate: {
         payload: userHelper.userValidation
       }
@@ -27,7 +27,7 @@ exports.userRoutes = [{
           where: { email: request.payload.email }
         });
 
-        if (isUserExist.length > 0) return Boom.badRequest('Email does exist, please use another email.');
+        if (isUserExist.length > 0) return requestHelper.customError('Email does exist, please use another email.');
 
         const { password, ...rest } = request.payload;
 
@@ -38,7 +38,7 @@ exports.userRoutes = [{
         return userHelper.userAttributes(JSON.parse(JSON.stringify(newUser)));
 
       } catch (e) {
-        return Boom.badRequest(e.message);
+        return requestHelper.customError(e.message);
       }
     }
   }, {
@@ -52,9 +52,9 @@ exports.userRoutes = [{
     handler: async(request) => {
       const user = await User.findOne({ where: { id: request.params.userId }});
 
-      if (!user) return Boom.notFound();
+      if (!user) return requestHelper.notFound();
 
-      return user;
+      return await userHelper.getHotelChainOfUser(user.id);
     },
   },
   {
@@ -68,7 +68,7 @@ exports.userRoutes = [{
     handler: async(request) => {
       const user = await User.findOne({ where: { id: request.params.userId }});
 
-      if (!user) return Boom.notFound();
+      if (!user) return requestHelper.notFound();
 
       delete request.payload.password;
 

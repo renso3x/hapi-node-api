@@ -1,18 +1,18 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('hotelchains', {
+    return queryInterface.createTable('hotelchainsuser', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      chainCode: {
-        type: Sequelize.STRING
+      hotelChainId: {
+        type: Sequelize.INTEGER
       },
-      chainName: {
-        type: Sequelize.STRING
+      userId: {
+        type: Sequelize.INTEGER
       },
       createdAt: {
         allowNull: false,
@@ -25,6 +25,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('hotelchains');
+    return queryInterface.dropTable('hotelchainsuser');
   }
 };

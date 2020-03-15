@@ -52,7 +52,8 @@ sequelize.authenticate().then(function(err) {
 
 const models = [
   'User',
-  'HotelChains'
+  'HotelChains',
+  'HotelChainUser'
 ];
 
 models.forEach(function(model) {
@@ -61,9 +62,11 @@ models.forEach(function(model) {
 
 // Relationships
 (function(m) {
-  m.User.hasOne(m.HotelChains);
-  m.HotelChains.belongsTo(m.User);
+  m.User.hasOne(m.HotelChainUser);
+  m.HotelChainUser.belongsTo(m.User);
 
+  m.HotelChains.hasOne(m.HotelChainUser);
+  m.HotelChainUser.belongsTo(m.HotelChains);
 })(module.exports);
 
 module.exports.db = sequelize;

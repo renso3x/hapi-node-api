@@ -3,6 +3,8 @@ const Joi = require('@hapi/joi');
 const models = require('../../models');
 
 const User = models.User;
+const HotelChains = models.HotelChains;
+const HotelChainUser = models.HotelChainUser;
 
 exports.userAttributes = (user) => _.omit(user, ['password']);
 
@@ -23,3 +25,27 @@ exports.userValidation = Joi.object({
   email: Joi.string().email().required(),
   password: Joi.string().required()
 })
+
+exports.findById = async (id) => {
+  const user = await User.findOne({
+    where: { id },
+    raw: true
+  })
+  return user;
+}
+
+exports.getHotelChainOfUser = async (userId) => {
+  return User.findOne({
+    where: {
+      id: userId
+    },
+    include: [
+      {
+        model: HotelChainUser,
+        include: [
+          { model: HotelChains }
+        ]
+      },
+    ],
+  });
+}

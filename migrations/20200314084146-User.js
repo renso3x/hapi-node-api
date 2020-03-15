@@ -23,9 +23,6 @@ module.exports = {
       suspended: {
         type: Sequelize.INTEGER,
       },
-      hotelChainId: {
-        type: Sequelize.INTEGER,
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE

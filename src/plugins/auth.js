@@ -26,7 +26,6 @@ exports.configureAuth = async (server) => {
       algorithms: [ 'HS256' ]
     }
   })
-
   // Default all routes to require JWT and opt out for public routes
   server.auth.default('jwt')
 }
