@@ -53,7 +53,8 @@ sequelize.authenticate().then(function(err) {
 const models = [
   'User',
   'HotelChains',
-  'HotelChainUser'
+  'HotelChainUser',
+  'Hotels'
 ];
 
 models.forEach(function(model) {
