@@ -7,15 +7,7 @@ const userHelper = require('../helpers/userHelper');
 
 const User = models.User;
 
-exports.userValidation = Joi.object({
-  firstName: Joi.string().required(),
-  lastName: Joi.string().required(),
-  email: Joi.string().email().required(),
-  password: Joi.string().required()
-})
-
-exports.userRoutes = [
-  {
+exports.userRoutes = [{
     method: 'GET',
     path: '/users',
     handler: async (request) => {
@@ -24,6 +16,11 @@ exports.userRoutes = [
   }, {
     method: 'POST',
     path: '/users',
+    options: {
+      validate: {
+        payload: userHelper.userValidation
+      }
+    },
     handler: async (request) => {
       try {
         const isUserExist = await User.findAll({
@@ -43,11 +40,41 @@ exports.userRoutes = [
       } catch (e) {
         return Boom.badRequest(e.message);
       }
-    },
+    }
+  }, {
+    method: 'GET',
+    path: '/users/{userId}',
     options: {
       validate: {
-        payload: exports.userValidation
+        params: userHelper.validateUserId
       }
-    }
+    },
+    handler: async(request) => {
+      const user = await User.findOne({ where: { id: request.params.userId }});
+
+      if (!user) return Boom.notFound();
+
+      return user;
+    },
+  },
+  {
+    method: 'PUT',
+    path: '/users/{userId}',
+    options: {
+      validate: {
+        params: userHelper.validateUserId
+      }
+    },
+    handler: async(request) => {
+      const user = await User.findOne({ where: { id: request.params.userId }});
+
+      if (!user) return Boom.notFound();
+
+      delete request.payload.password;
+
+      user.update(request.payload)
+
+      return user.save();
+    },
   }
 ];

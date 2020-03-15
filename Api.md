@@ -6,8 +6,7 @@
 - User
   - GET /users/ - get all users
   - POST /users/ - create user associated in a HotelChain
-  - UPDATE /users/{userId} - update user
-  - DELETE /users/{userId} - soft delete a user/suspend
+  - UPDATE /users/{userId} - update user/suspend
 
 - HotelChain
   - GET /hotel-chains - get all hotel chains

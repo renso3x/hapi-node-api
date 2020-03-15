@@ -1,8 +1,12 @@
 'use strict';
+
 require('dotenv/config');
+
 const Hapi = require('@hapi/hapi');
+
+const { configureAuth } = require('./plugins/auth');
+const { logger } = require('./plugins/logger');
 const { configureRoutes } = require('./routes');
-const { configureAuth } = require('./helpers/authHelper');
 
 const server = Hapi.server({
   port: 4000,
@@ -11,6 +15,7 @@ const server = Hapi.server({
 
 const init = async () => {
   await configureAuth(server);
+  await logger(server);
   await configureRoutes(server);
 
   await server.start();
