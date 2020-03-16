@@ -9,8 +9,8 @@
 - [ ] Hotels hasOne StarRating
 - [ ] StarRating belongsTo Hotels
 
-- [ ] Hotels hasMany HotelRooms
-- [ ] HotelRooms belongsTo Hotels
+- [x] Hotels hasMany HotelRooms
+- [x] HotelRooms belongsTo Hotels
 
 - [ ] Hotels hasMany RoomBookings
 - [ ] RoomBookings belongsTo Hotels
