@@ -1,22 +1,26 @@
-#Route Definitions
+### Route Definitions
 
-- Authenticate
-  - POST /authenticate - authenticate user return HotelChains, Hotel
+- [x] Authenticate
+  - [x] POST /authenticate - authenticate user return HotelChains, Hotel
 
-- User
-  - GET /users/ - get all users
-  - POST /users/ - create user associated in a HotelChain
-  - UPDATE /users/{userId} - update user/suspend
+- [x] User
+  - [x] GET /users/ - get all users
+  - [x] POST /users/ - create user associated in a HotelChain
+  - [x] UPDATE /users/{userId} - update user/suspend
 
-- HotelChain
-  - GET /hotel-chains - get all hotel chains
-  - POST /hotel-chains - create a hotel chain
+- [x] HotelChain
+  - [x] GET /hotel-chains - get all hotel chains
+  - [x] POST /hotel-chains - create a hotel chain
 
-- Hotels
-  - GET /hotels - get all list of hotels
-  - POST /hotels - create a hotels, associate with HotelChain
-  - PUT /hotels/{hotelId} - update hotel details/ suspend
-  - DELETE /hotels/{hotelId} - soft delete a hotel
+- [x] Hotels
+  - [x] GET /hotels - get all list of hotels
+  - [x] POST /hotels - create a hotels, associate with HotelChain
+  - [x] PUT /hotels/{hotelId} - update hotel details/ suspend
+
+  - [x] HotelRoom
+    - [x] GET /hotels/rooms/ - get all rooms of a hotel
+    - [x] POST /hotels/rooms/ - create a room in a hotel, associate with RoomTypes
+    - [x] PUT /hotels/rooms/{roomId} - update a room/ suspend
 
   - RoomRate
     - GET /hotels/room-rate - get all room rates
@@ -33,12 +37,6 @@
     - POST /hotels/room-types/ - create room type, associate with RoomRatePeriods
     - PUT /hotels/room-types/{roomTypeId} - update room type / suspend
     - DELETE /hotels/room-types/{roomTypeId} - remove room type
-
-  - HotelRoom
-    - GET /hotels/rooms/ - get all rooms of a hotel
-    - POST /hotels/rooms/ - create a room in a hotel, associate with RoomTypes
-    - PUT /hotels/rooms/{roomId} - update a room/ suspend
-    - DELETE /hotels/rooms/{roomId} - soft delete a room
 
   - Guests
     - GET /hotels/guests - get all guests in a hotel

@@ -54,7 +54,11 @@ const models = [
   'User',
   'HotelChains',
   'HotelChainUser',
-  'Hotels'
+  'Hotels',
+  'HotelRooms',
+  'HotelRoomTypeRate',
+  'PeriodRatePeriod',
+  'RoomRate',
 ];
 
 models.forEach(function(model) {
@@ -68,6 +72,18 @@ models.forEach(function(model) {
 
   m.HotelChains.hasOne(m.HotelChainUser);
   m.HotelChainUser.belongsTo(m.HotelChains);
+
+  m.Hotels.hasMany(m.HotelRooms);
+  m.HotelRooms.belongsTo(m.Hotels);
+
+  m.HotelRoomTypeRate.hasMany(m.PeriodRatePeriod);
+  m.PeriodRatePeriod.belongsTo(m.HotelRoomTypeRate);
+
+  m.PeriodRatePeriod.hasMany(m.RoomRate);
+  m.RoomRate.belongsTo(m.PeriodRatePeriod);
+
+  m.HotelRooms.hasMany(m.HotelRoomTypeRate);
+  m.HotelRoomTypeRate.belongsTo(m.HotelRooms);
 })(module.exports);
 
 module.exports.db = sequelize;

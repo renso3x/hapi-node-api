@@ -8,3 +8,18 @@ exports.validateHotelPayload = Joi.object({
   city: Joi.string(),
   url: Joi.string()
 });
+
+exports.validateHotelRooms = Joi.object({
+  roomNumber: Joi.number().required(),
+  roomFloor: Joi.number(),
+  roomCount: Joi.number(),
+});
+
+exports.validateRoomQuery = Joi.object({
+  hotel: Joi.number().required()
+});
+
+exports.validatePutHotelRoomQuery = Joi.object({
+  hotel: Joi.number().required(),
+  room: Joi.number().required()
+});
