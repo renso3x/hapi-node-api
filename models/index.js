@@ -57,7 +57,7 @@ const models = [
   'Hotels',
   'HotelRooms',
   'HotelRoomTypeRate',
-  'PeriodRatePeriod',
+  'PeriodRoomRate',
   'RoomRate',
 ];
 
@@ -79,11 +79,14 @@ models.forEach(function(model) {
   m.Hotels.hasMany(m.RoomRate);
   m.RoomRate.belongsTo(m.Hotels);
 
-  m.RoomRate.hasMany(m.PeriodRatePeriod);
-  m.PeriodRatePeriod.belongsTo(m.RoomRate);
+  m.RoomRate.hasMany(m.PeriodRoomRate);
+  m.PeriodRoomRate.belongsTo(m.RoomRate);
 
-  // m.HotelRoomTypeRate.hasMany(m.PeriodRatePeriod);
-  // m.PeriodRatePeriod.belongsTo(m.HotelRoomTypeRate);
+  m.Hotels.hasMany(m.PeriodRoomRate);
+  m.PeriodRoomRate.belongsTo(m.Hotels);
+
+  // m.HotelRoomTypeRate.hasMany(m.PeriodRoomRate);
+  // m.PeriodRoomRate.belongsTo(m.HotelRoomTypeRate);
 
   // m.HotelRooms.hasMany(m.HotelRoomTypeRate);
   // m.HotelRoomTypeRate.belongsTo(m.HotelRooms);

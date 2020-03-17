@@ -5,5 +5,7 @@ module.exports = (sequelize, DataTypes) => {
     periodRatePeriodId: DataTypes.INTEGER,
     periodFrom: DataTypes.DATE,
     periodTo: DataTypes.DATE
-  }, {});
+  }, {
+    table: 'hotelroomtyperate'
+  });
 };

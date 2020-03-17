@@ -52,3 +52,21 @@ exports.validatePutRoomRate = {
   })
 }
 
+exports.validatePeriodRoomRatePayload = Joi.object({
+  periodName: Joi.string().required(),
+  roomRateId: Joi.number().required(),
+  description: Joi.string(),
+})
+
+exports.validateRoomRatePeriods = {
+  payload: exports.validatePeriodRoomRatePayload,
+  query: exports.validateHotelQuery,
+}
+
+exports.validatePutRoomRatePeriods = {
+  payload: exports.validatePeriodRoomRatePayload,
+  query: exports.validateHotelQuery,
+  params: Joi.object({
+    roomRatePeriodId: Joi.number().required(),
+  })
+}

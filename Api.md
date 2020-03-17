@@ -28,10 +28,9 @@
     - [x] PUT /hotesls/room-rates/{roomRateId} - update a room rate
 
   - RoomRatePeriods
-    - GET /hotels/room-rate/periods - get all room rate periods
-    - POST /hotels/room-rate/periods - create a room rate periods
-    - PUT /hotels/room-rate/periods/{periodId} - update room rate period / suspend
-    - DESTROY /hotels/room-rate/periods/{periodId} - remove room rate period
+    - [x] GET /hotels/room-rate-periods - get all room rate periods
+    - [x] POST /hotels/room-rate-periods - create a room rate periods
+    - [x]PUT /hotels/room-rate-periods/{periodId} - update room rate period / suspend
 
   - RoomTypes
     - GET /hotels/room-types/ - get room types

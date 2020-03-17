@@ -5,6 +5,7 @@ const requestHelper = require('../helpers/request');
 const Hotels = models.Hotels;
 const HotelRooms = models.HotelRooms;
 const RoomRate = models.RoomRate;
+const PeriodRoomRate = models.PeriodRoomRate;
 
 exports.hotelRoutes = [{
     method: 'GET',
@@ -150,5 +151,59 @@ exports.hotelRoutes = [{
 
       return roomRate.save();
     }
+  }, {
+    method: 'GET',
+    path: '/hotels/room-rate-periods',
+    options: {
+      validate: {
+        query: hotelHelper.validateHotelQuery,
+      }
+    },
+    handler: async (request) => {
+      const hotel = await hotelHelper.ifHotelExist(request);
+      if (!hotel) return requestHelper.customError('Hotel doesn\'t exists.');
+
+      return await Hotels.findAll({
+        where: { id: request.query.hotel },
+        include: [
+          { model: PeriodRoomRate }
+        ]
+      });
+    }
+  }, {
+    method: 'POST',
+    path: '/hotels/room-rate-periods',
+    options: {
+      validate: hotelHelper.validateRoomRatePeriods
+    },
+    handler: async (request) => {
+      const hotel = await hotelHelper.ifHotelExist(request);
+      if (!hotel) return requestHelper.customError('Hotel doesn\'t exists.');
+
+      const roomRatePeriods = {
+        ...request.payload,
+        hotelId: request.query.hotel
+      }
+      return await PeriodRoomRate.create(roomRatePeriods);
+    }
+  }, {
+    method: 'PUT',
+    path: '/hotels/room-rate-periods/{roomRatePeriodId}',
+    options: {
+      validate: hotelHelper.validatePutRoomRatePeriods
+    },
+    handler: async (request) => {
+      const hotel = await hotelHelper.ifHotelExist(request);
+      if (!hotel) return requestHelper.customError('Hotel doesn\'t exists.');
+
+      const roomRatePeriod = await PeriodRoomRate.findOne({ where: { id: request.params.roomRatePeriodId }})
+
+      roomRatePeriod.update({
+        ...request.payload,
+      });
+
+      return roomRatePeriod.save();
+    }
   }
+
 ]
