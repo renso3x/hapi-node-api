@@ -4,6 +4,9 @@ module.exports = (sequelize, DataTypes) => {
     rate: {
       type: DataTypes.DECIMAL(10, 2)
     },
-    currency: DataTypes.STRING
+    currency: DataTypes.STRING,
+    hotelId: {
+      type: DataTypes.INTEGER
+    }
   }, {});
 };

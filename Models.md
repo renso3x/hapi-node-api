@@ -34,9 +34,11 @@ Hotel Room
 
 Period Room Rate
   id = 1
+  hotel_id = 1
   rate = 500
 
   id = 2
+  hotel_id = 1
   rate = 1000
 
 Period Rate Period - Contains Season Rates

@@ -23,8 +23,9 @@
     - [x] PUT /hotels/rooms/{roomId} - update a room/ suspend
 
   - RoomRate
-    - GET /hotels/room-rate - get all room rates
-    - POST /hotesls/room-rate - create a room rate
+    - [x] GET /hotels/room-rates - get all room rates
+    - [x] POST /hotesls/room-rates - create a room rate
+    - [x] PUT /hotesls/room-rates/{roomRateId} - update a room rate
 
   - RoomRatePeriods
     - GET /hotels/room-rate/periods - get all room rate periods

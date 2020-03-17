@@ -76,14 +76,17 @@ models.forEach(function(model) {
   m.Hotels.hasMany(m.HotelRooms);
   m.HotelRooms.belongsTo(m.Hotels);
 
-  m.HotelRoomTypeRate.hasMany(m.PeriodRatePeriod);
-  m.PeriodRatePeriod.belongsTo(m.HotelRoomTypeRate);
+  m.Hotels.hasMany(m.RoomRate);
+  m.RoomRate.belongsTo(m.Hotels);
 
-  m.PeriodRatePeriod.hasMany(m.RoomRate);
-  m.RoomRate.belongsTo(m.PeriodRatePeriod);
+  m.RoomRate.hasMany(m.PeriodRatePeriod);
+  m.PeriodRatePeriod.belongsTo(m.RoomRate);
 
-  m.HotelRooms.hasMany(m.HotelRoomTypeRate);
-  m.HotelRoomTypeRate.belongsTo(m.HotelRooms);
+  // m.HotelRoomTypeRate.hasMany(m.PeriodRatePeriod);
+  // m.PeriodRatePeriod.belongsTo(m.HotelRoomTypeRate);
+
+  // m.HotelRooms.hasMany(m.HotelRoomTypeRate);
+  // m.HotelRoomTypeRate.belongsTo(m.HotelRooms);
 })(module.exports);
 
 module.exports.db = sequelize;
