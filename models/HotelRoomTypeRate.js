@@ -6,6 +6,6 @@ module.exports = (sequelize, DataTypes) => {
     periodFrom: DataTypes.DATE,
     periodTo: DataTypes.DATE
   }, {
-    table: 'hotelroomtyperate'
+    tableName: 'hotelroomtyperate'
   });
 };

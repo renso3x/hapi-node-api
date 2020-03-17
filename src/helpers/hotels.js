@@ -1,7 +1,9 @@
-const Joi = require('@hapi/joi');
+const Joi = require('@hapi/joi').extend(require('@hapi/joi-date'));
 const models = require('../../models');
 
 const Hotels = models.Hotels;
+const PeriodRoomRate = models.PeriodRoomRate;
+const HotelRooms = models.HotelRooms;
 
 exports.validateHotelPayload = Joi.object({
   code: Joi.string(),
@@ -68,5 +70,29 @@ exports.validatePutRoomRatePeriods = {
   query: exports.validateHotelQuery,
   params: Joi.object({
     roomRatePeriodId: Joi.number().required(),
+  })
+}
+
+exports.validateRoomRateTypes = {
+  payload: Joi.object({
+    hotelRoomId: Joi.number().required(),
+    periodRatePeriodId: Joi.number().required(),
+    periodFrom: Joi.date().format('YYYY-MM-DD').required(),
+    periodTo: Joi.date().format('YYYY-MM-DD').required()
+  }),
+}
+
+exports.checkHotelRoom = async (request) => {
+  return await HotelRooms.findOne({ where: { id: request.payload.hotelRoomId }});
+}
+
+exports.checkRatePeriod = async (request) => {
+  return await PeriodRoomRate.findOne({ where: { id: request.payload.periodRatePeriodId }});
+}
+
+exports.validatePutRoomRateTypes = {
+  payload: exports.validateRoomRateTypes.payload,
+  params: Joi.object({
+    roomTypeId: Joi.number().required()
   })
 }

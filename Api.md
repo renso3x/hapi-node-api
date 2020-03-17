@@ -33,10 +33,9 @@
     - [x]PUT /hotels/room-rate-periods/{periodId} - update room rate period / suspend
 
   - RoomTypes
-    - GET /hotels/room-types/ - get room types
-    - POST /hotels/room-types/ - create room type, associate with RoomRatePeriods
-    - PUT /hotels/room-types/{roomTypeId} - update room type / suspend
-    - DELETE /hotels/room-types/{roomTypeId} - remove room type
+    - [x] GET /hotels/room-types/ - get room types
+    - [x] POST /hotels/room-types/ - create room type, associate with RoomRatePeriods
+    - [x]  PUT /hotels/room-types/{roomTypeId} - update room type / suspend
 
   - Guests
     - GET /hotels/guests - get all guests in a hotel

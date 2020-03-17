@@ -6,6 +6,7 @@ const Hotels = models.Hotels;
 const HotelRooms = models.HotelRooms;
 const RoomRate = models.RoomRate;
 const PeriodRoomRate = models.PeriodRoomRate;
+const HotelRoomTypeRate = models.HotelRoomTypeRate;
 
 exports.hotelRoutes = [{
     method: 'GET',
@@ -204,6 +205,63 @@ exports.hotelRoutes = [{
 
       return roomRatePeriod.save();
     }
-  }
+  }, {
+    method: 'GET',
+    path: '/hotels/room-types',
+    options: {
+      validate: {
+        query: hotelHelper.validateHotelQuery,
+      }
+    },
+    handler: async (request) => {
+      const hotel = await hotelHelper.ifHotelExist(request);
+      if (!hotel) return requestHelper.customError('Hotel doesn\'t exists.');
 
+      return await Hotels.findAll({
+        where: { id: request.query.hotel },
+        include: [
+          {
+            model: HotelRooms,
+            include: [
+              { model: HotelRoomTypeRate }
+            ]
+          }
+        ]
+      });
+    }
+  }, {
+    method: 'POST',
+    path: '/hotels/room-types',
+    options: {
+      validate: hotelHelper.validateRoomRateTypes
+    },
+    handler: async (request) => {
+      const hotelRoom = await hotelHelper.checkHotelRoom(request);
+      if (!hotelRoom) return requestHelper.customError('Room doesn\'t exist');
+
+      const periodRatePeriod = await hotelHelper.checkRatePeriod(request);
+      if (!periodRatePeriod) return requestHelper.customError('Period Rate doesn\'t exist');
+
+      return await HotelRoomTypeRate.create(request.payload);
+    }
+  }, {
+    method: 'PUT',
+    path: '/hotels/room-types/{roomTypeId}',
+    options: {
+      validate: hotelHelper.validatePutRoomRateTypes
+    },
+    handler: async (request) => {
+      const hotelRoom = await hotelHelper.checkHotelRoom(request);
+      if (!hotelRoom) return requestHelper.customError('Room doesn\'t exist');
+
+      const periodRatePeriod = await hotelHelper.checkRatePeriod(request);
+      if (!periodRatePeriod) return requestHelper.customError('Period Rate doesn\'t exist');
+
+      const hotelRoomRateType = await HotelRoomTypeRate.findOne({ where: { id: request.params.roomTypeId }});
+
+      hotelRoomRateType.update(request.payload)
+
+      return hotelRoomRateType.save();
+    }
+  }
 ]
