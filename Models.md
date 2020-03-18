@@ -18,19 +18,27 @@
 - [x] HotelRoomTypeRate.hasMany(HotelRooms)
 - [x] HotelRooms.belongsTo(HotelRoomTypeRate)
 
-- [ ] Hotels hasOne StarRating
-- [ ] StarRating belongsTo Hotels
+- [x] m.HotelRooms.hasMany(m.HotelRoomTypeRate);
 
-- [ ] RoomBookings hasOne Bookings
-- [ ] Bookings belongsTo RoomBookings
+- [x] m.Booking.hasOne(m.Guest);
 
-- [ ] Bookings hasOne Guests
-- [ ] Guests belongsTo Bookings
+- [x] m.Hotels.hasMany(m.Booking);
+
+- [x] m.Booking.hasOne(m.BookingDetails);
+
+
+Checkout
+
+- Booking Details
+  - bookingId = 1
+  - status = ['newbooking', 'checkout', 'canceled']
+  - updatedDate = 2020-04-12
 
 
 Hotel Room
   id = 1
   room_name = "A105"
+  room_count = 2
 
 Period Room Rate
   id = 1
@@ -66,3 +74,22 @@ Hotel Room Type Rate
   period_from = April 12,2020
   period_to = April 15, 2020
 
+Booking
+  - room_type_rate_id = 1
+  - hotel_id = 1
+  - date_booking_from
+  - data_booking_to
+  - guest_id = 1
+
+    room_type_rate_id = 2
+  - hotel_id = 1
+  - date_booking_from
+  - data_booking_to
+  - guest_id = 2
+
+Guests
+  id - 1
+  name - Romeo Enso
+
+  id - 2
+  name - Joy Enso

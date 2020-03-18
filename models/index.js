@@ -59,6 +59,9 @@ const models = [
   'HotelRoomTypeRate',
   'PeriodRoomRate',
   'RoomRate',
+  'Guest',
+  'Booking',
+  'BookingDetails'
 ];
 
 models.forEach(function(model) {
@@ -86,6 +89,12 @@ models.forEach(function(model) {
   m.PeriodRoomRate.belongsTo(m.Hotels);
 
   m.HotelRooms.hasMany(m.HotelRoomTypeRate);
+
+  m.Booking.hasOne(m.Guest);
+
+  m.Hotels.hasMany(m.Booking);
+
+  m.Booking.hasOne(m.BookingDetails);
 })(module.exports);
 
 module.exports.db = sequelize;

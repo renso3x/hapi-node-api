@@ -4,6 +4,7 @@ const models = require('../../models');
 const Hotels = models.Hotels;
 const PeriodRoomRate = models.PeriodRoomRate;
 const HotelRooms = models.HotelRooms;
+const Booking = models.Booking;
 
 exports.validateHotelPayload = Joi.object({
   code: Joi.string(),
@@ -95,4 +96,42 @@ exports.validatePutRoomRateTypes = {
   params: Joi.object({
     roomTypeId: Joi.number().required()
   })
+}
+
+const validateGuestPayload = {
+  firstName: Joi.string().required(),
+  lastName: Joi.string().required(),
+  email: Joi.string().email().required(),
+  address: Joi.string(),
+  city: Joi.string(),
+  idNumber: Joi.string()
+}
+
+exports.validateBookingPayload = {
+  payload: Joi.object({
+    hotelId: Joi.number().required(),
+    roomTypeRateId: Joi.number().required(),
+    bookingFrom: Joi.date().format('YYYY-MM-DD').required(),
+    bookingTo: Joi.date().format('YYYY-MM-DD').required(),
+    guest: Joi.object(validateGuestPayload).required()
+  }),
+};
+
+exports.validatePutBookingPayload = {
+  params: Joi.object({
+    bookingId: Joi.number().required()
+  }),
+  payload: Joi.object({
+    roomTypeRateId: Joi.number().required(),
+    bookingFrom: Joi.date().format('YYYY-MM-DD').required(),
+    bookingTo: Joi.date().format('YYYY-MM-DD').required(),
+    guest: Joi.object(validateGuestPayload).required(),
+    status: Joi.string().valid('newbooking', 'checkout', 'cancelled')
+  }),
+}
+
+exports.findBookingById = async (request) => {
+  return await Booking.findOne({
+    where: { id: request.params.bookingId },
+  });
 }

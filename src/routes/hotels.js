@@ -7,6 +7,9 @@ const HotelRooms = models.HotelRooms;
 const RoomRate = models.RoomRate;
 const PeriodRoomRate = models.PeriodRoomRate;
 const HotelRoomTypeRate = models.HotelRoomTypeRate;
+const Guest = models.Guest;
+const Booking = models.Booking;
+const BookingDetails = models.BookingDetails;
 
 exports.hotelRoutes = [{
     method: 'GET',
@@ -223,7 +226,9 @@ exports.hotelRoutes = [{
           {
             model: HotelRooms,
             include: [
-              { model: HotelRoomTypeRate }
+              {
+                model: HotelRoomTypeRate,
+              }
             ]
           }
         ]
@@ -262,6 +267,88 @@ exports.hotelRoutes = [{
       hotelRoomRateType.update(request.payload)
 
       return hotelRoomRateType.save();
+    }
+  }, {
+    method: 'GET',
+    path: '/hotels/bookings',
+    options: {
+      validate: {
+        query: hotelHelper.validateHotelQuery,
+      }
+    },
+    handler: async (request) => {
+      const hotel = await hotelHelper.ifHotelExist(request);
+      if (!hotel) return requestHelper.customError('Hotel doesn\'t exists.');
+
+      return await Hotels.findAll({
+        where: { id: request.query.hotel },
+        include: [
+          {
+            model: Booking,
+            include: [
+              { model: BookingDetails }
+            ]
+          }
+        ]
+      });
+    }
+  }, {
+    method: 'POST',
+    path: '/hotels/bookings',
+    options: {
+      validate: hotelHelper.validateBookingPayload
+    },
+    handler: async (request) => {
+      const { guest, hotelId, roomTypeRateId, bookingFrom, bookingTo } = request.payload;
+      const newGuest = await Guest.create(guest);
+
+      const newBooking = {
+        guestId: newGuest.id,
+        hotelId,
+        roomTypeRateId,
+        bookingFrom,
+        bookingTo
+      };
+
+      const booking = await Booking.create(newBooking);
+
+      return await BookingDetails.create({
+        bookingId: booking.id,
+        status: 'newbooking',
+      });
+    }
+  }, {
+    method: 'PUT',
+    path: '/hotels/bookings/{bookingId}',
+    options: {
+      validate: hotelHelper.validatePutBookingPayload
+    },
+    handler: async (request) => {
+
+      let booking = await hotelHelper.findBookingById(request);
+
+      if (!booking) return requestHelper.customError('Cannot find booking');
+
+      const { guest, roomTypeRateId, bookingFrom, bookingTo, status } = request.payload;
+
+      const getBooking = await Booking.findOne({
+        where: { id: request.params.bookingId },
+      });
+
+      const updateBookingDetails = {
+        roomTypeRateId,
+        bookingFrom,
+        bookingTo
+      };
+      getBooking.update(updateBookingDetails);
+      getBooking.save();
+
+      const bookingDetails = await BookingDetails.findOne({
+        where: { bookingId: booking.id },
+      });
+
+      bookingDetails.update({ status });
+      return bookingDetails.save();
     }
   }
 ]

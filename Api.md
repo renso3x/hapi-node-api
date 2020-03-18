@@ -35,13 +35,12 @@
   - RoomTypes
     - [x] GET /hotels/room-types/ - get room types
     - [x] POST /hotels/room-types/ - create room type, associate with RoomRatePeriods
-    - [x]  PUT /hotels/room-types/{roomTypeId} - update room type / suspend
+    - [x] PUT /hotels/room-types/{roomTypeId} - update room type / suspend
 
   - Guests
-    - GET /hotels/guests - get all guests in a hotel
+    - [x] POST /hotels/guests - create guest for record purposes
 
   - Bookings
-    - GET /hotels/bookings - get all bookings in a hotel
-    - POST /hotels/bookings - create a booking in a hotel, associate with Guests
-    - PUT  /hotels/bookings/{bookingId} - update a booking in a hotel
-    - DELETE /hotels/booking/{bookingId} - cancel a booking
+    - [x] GET /hotels/bookings - get all bookings in a hotel
+    - [x] POST /hotels/bookings - create a booking in a hotel, associate with Guests
+    - [x] PUT /hotels/bookings/{bookingId} - update a booking in a hotel/checkout/cancel
