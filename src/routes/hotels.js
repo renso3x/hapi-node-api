@@ -1,3 +1,6 @@
+const Sequelize = require('sequelize');
+const Op = Sequelize.Op;
+
 const models = require('../../models');
 const hotelHelper = require('../helpers/hotels');
 const requestHelper = require('../helpers/request');
@@ -170,7 +173,9 @@ exports.hotelRoutes = [{
       return await Hotels.findAll({
         where: { id: request.query.hotel },
         include: [
-          { model: PeriodRoomRate }
+          {
+            model: PeriodRoomRate,
+          }
         ]
       });
     }
@@ -280,13 +285,31 @@ exports.hotelRoutes = [{
       const hotel = await hotelHelper.ifHotelExist(request);
       if (!hotel) return requestHelper.customError('Hotel doesn\'t exists.');
 
+      const bookingFrom = request.query.startDate || new Date();
+      const bookingTo = request.query.endDate || new Date();
+
       return await Hotels.findAll({
-        where: { id: request.query.hotel },
+        where: {
+          id: request.query.hotel,
+        },
         include: [
           {
             model: Booking,
+            where: {
+              bookingFrom: {
+                [Op.between]: [bookingFrom, bookingTo]
+              }
+            },
             include: [
-              { model: BookingDetails }
+              { model: BookingDetails },
+              { model: Guest },
+              {
+                model: HotelRoomTypeRate,
+                include: [
+                  { model: HotelRooms },
+                  { model: PeriodRoomRate }
+                ]
+              }
             ]
           }
         ]

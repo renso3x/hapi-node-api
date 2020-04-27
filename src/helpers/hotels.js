@@ -22,7 +22,9 @@ exports.validateHotelRooms = Joi.object({
 });
 
 exports.validateHotelQuery = Joi.object({
-  hotel: Joi.number().required()
+  hotel: Joi.number().required(),
+  startDate: Joi.date(),
+  endDate: Joi.date(),
 });
 
 exports.validatePutHotelRoomQuery = Joi.object({
@@ -111,8 +113,8 @@ exports.validateBookingPayload = {
   payload: Joi.object({
     hotelId: Joi.number().required(),
     roomTypeRateId: Joi.number().required(),
-    bookingFrom: Joi.date().format('YYYY-MM-DD').required(),
-    bookingTo: Joi.date().format('YYYY-MM-DD').required(),
+    bookingFrom: Joi.date(),
+    bookingTo: Joi.date(),
     guest: Joi.object(validateGuestPayload).required()
   }),
 };
@@ -123,8 +125,8 @@ exports.validatePutBookingPayload = {
   }),
   payload: Joi.object({
     roomTypeRateId: Joi.number().required(),
-    bookingFrom: Joi.date().format('YYYY-MM-DD').required(),
-    bookingTo: Joi.date().format('YYYY-MM-DD').required(),
+    bookingFrom: Joi.date(),
+    bookingTo: Joi.date(),
     guest: Joi.object(validateGuestPayload).required(),
     status: Joi.string().valid('newbooking', 'checkout', 'cancelled')
   }),

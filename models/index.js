@@ -90,11 +90,23 @@ models.forEach(function(model) {
 
   m.HotelRooms.hasMany(m.HotelRoomTypeRate);
 
-  m.Booking.hasOne(m.Guest);
+  m.Booking.belongsTo(m.Guest, {
+    foreignKey: 'guestId'
+  })
 
   m.Hotels.hasMany(m.Booking);
 
   m.Booking.hasOne(m.BookingDetails);
+
+  m.Booking.belongsTo(m.HotelRoomTypeRate, {
+    foreignKey: 'roomTypeRateId'
+  });
+  m.HotelRoomTypeRate.belongsTo(m.PeriodRoomRate, {
+    foreignKey: 'periodRatePeriodId'
+  })
+  m.HotelRoomTypeRate.belongsTo(m.HotelRooms, {
+    foreignKey: 'hotelRoomId'
+  })
 })(module.exports);
 
 module.exports.db = sequelize;
