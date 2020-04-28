@@ -46,13 +46,13 @@ exports.hotelRoutes = [{
     method: 'GET',
     path: '/hotels/rooms', // ?hotel=1
     handler: async (request) => {
-      return await Hotels.findAll({
+      return await Hotels.findOne({
         where: {
           id: request.query.hotel
         },
         include: [
           { model: HotelRooms }
-        ]
+        ],
       });
     }
   }, {
@@ -288,7 +288,7 @@ exports.hotelRoutes = [{
       const bookingFrom = request.query.startDate || new Date();
       const bookingTo = request.query.endDate || new Date();
 
-      return await Hotels.findAll({
+      return await Hotels.findOne({
         where: {
           id: request.query.hotel,
         },
@@ -296,9 +296,15 @@ exports.hotelRoutes = [{
           {
             model: Booking,
             where: {
-              bookingFrom: {
-                [Op.between]: [bookingFrom, bookingTo]
-              }
+              [Op.or]: [{
+                bookingFrom: {
+                  [Op.between]: [bookingFrom, bookingTo]
+                },
+              }, {
+                bookingTo: {
+                  [Op.between]: [bookingFrom, bookingTo]
+                },
+              }]
             },
             include: [
               { model: BookingDetails },
