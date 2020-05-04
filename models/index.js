@@ -61,7 +61,10 @@ const models = [
   'RoomRate',
   'Guest',
   'Booking',
-  'BookingDetails'
+  'BookingDetails',
+
+  // Refactor Model v2
+  'RoomFeatures',
 ];
 
 models.forEach(function(model) {

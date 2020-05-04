@@ -26,7 +26,6 @@
 
 - [x] m.Booking.hasOne(m.BookingDetails);
 
-
 Checkout
 
 - Booking Details
