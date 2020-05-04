@@ -1,5 +1,5 @@
 const models = require('../../models');
-const roomHelper = require('../helpers/rooms');
+const { roomFeatureValidator } = require('../helpers/rooms');
 const requestHelper = require('../helpers/request');
 
 const RoomFeatures = models.RoomFeatures;
@@ -16,7 +16,7 @@ exports.roomFeatureRoutes = [
     path: '/room-features',
     options: {
       validate: {
-        payload: roomHelper.validateRoomFeatures
+        payload: roomFeatureValidator.validateRoomFeatures
       }
     },
     handler: async (request) => {
@@ -27,8 +27,8 @@ exports.roomFeatureRoutes = [
     path: '/room-features/{featureId}',
     options: {
       validate: {
-        params: roomHelper.validateParams,
-        payload: roomHelper.validateRoomFeatures
+        params: roomFeatureValidator.validateFeatureParams,
+        payload: roomFeatureValidator.validateRoomFeatures
       }
     },
     handler: async (request) => {
@@ -42,7 +42,7 @@ exports.roomFeatureRoutes = [
     path: '/room-features/{featureId}',
     options: {
       validate: {
-        params: roomHelper.validateParams,
+        params: roomFeatureValidator.validateParams,
       }
     },
     handler: async (request) => {

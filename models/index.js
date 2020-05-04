@@ -65,6 +65,7 @@ const models = [
 
   // Refactor Model v2
   'RoomFeatures',
+  'BedConfig'
 ];
 
 models.forEach(function(model) {

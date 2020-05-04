@@ -1,9 +1,21 @@
 const Joi = require('@hapi/joi');
 
-exports.validateRoomFeatures = Joi.object({
-  name: Joi.string().required(),
-})
+exports.roomFeatureValidator = {
+  validateRoomFeatures: Joi.object({
+    name: Joi.string().required(),
+  }),
 
-exports.validateParams = Joi.object({
-  featureId: Joi.number().required()
-})
+  validateFeatureParams: Joi.object({
+    featureId: Joi.number().required()
+  })
+}
+
+exports.bedValidator = {
+  validateBed: Joi.object({
+    name: Joi.string().required(),
+  }),
+
+  validateBedParams: Joi.object({
+    bedId: Joi.number().required()
+  })
+}

@@ -32,10 +32,10 @@ Room Features: (room_features)
   - feature_id: int (hotel_features_id)
   - default_rate: float -> this will be from the rate plan value if not supplied
 
-Features: (hotel_room_features)
+[x] Features: (hotel_room_features)
   - name: string('air condition', 'swimming pool', 'hair dyer')
 
-Bed Configuration: (hotel_bed_config)
+[x] Bed Configuration: (hotel_bed_config)
   - name: string ['single bed', 'single sofa bed', 'king bed']
 
 Rate Plan Bed Config: (rate_plan_bed_config)
