@@ -116,6 +116,24 @@ models.forEach(function(model) {
   m.HotelRoomTypeRate.belongsTo(m.HotelRooms, {
     foreignKey: 'hotelRoomId'
   })
+
+
+  // Revision Model
+
+  m.RatePlan.hasMany(m.RoomType);
+  m.RoomType.belongsTo(m.RatePlan, {
+    foreignKey: 'rate_plan',
+    as: 'rateplan'
+  });
+
+  m.RatePlan.hasOne(m.BedConfig);
+
+  m.RatePlanBedConfig.belongsTo(m.BedConfig);
+
+  m.RoomType.hasMany(m.RoomFeatures);
+  m.RatePlan.hasMany(m.RateExtra);
+
+  m.RatePlan.hasMany(m.CustomRatePlan)
 })(module.exports);
 
 module.exports.db = sequelize;
