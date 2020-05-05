@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const Joi = require('@hapi/joi');
-const models = require('../../models');
+const models = require('../models');
 
 const User = models.User;
 const HotelChains = models.HotelChains;

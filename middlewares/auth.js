@@ -1,6 +1,6 @@
 const jwtPlugin = require('hapi-auth-jwt2').plugin;
 
-const models = require('../../models');
+const models = require('../models');
 const User = models.User;
 
 const JWT_KEY = process.env.JWT_KEY;

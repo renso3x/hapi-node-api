@@ -1,7 +1,7 @@
 const Boom = require('@hapi/boom');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const models = require('../../models');
+const models = require('../models');
 const userHelper = require('./userHelper');
 
 const User = models.User;

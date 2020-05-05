@@ -1,6 +1,6 @@
 const bcrypt = require('bcrypt');
 
-const models = require('../../models');
+const models = require('../models');
 const userHelper = require('../helpers/userHelper');
 const requestHelper = require('../helpers/request');
 

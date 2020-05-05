@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const Op = Sequelize.Op;
 
-const models = require('../../models');
+const models = require('../models');
 const hotelHelper = require('../helpers/hotels');
 const requestHelper = require('../helpers/request');
 

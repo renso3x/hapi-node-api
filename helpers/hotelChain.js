@@ -1,6 +1,6 @@
 const Joi = require('@hapi/joi');
 
-const models = require('../../models');
+const models = require('../models');
 const HotelChains = models.HotelChains;
 
 exports.validateHotelChainPayload = Joi.object({

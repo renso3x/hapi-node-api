@@ -1,4 +1,4 @@
-const models = require('../../models');
+const models = require('../models');
 const { bedValidator } = require('../helpers/rooms');
 const requestHelper = require('../helpers/request');
 

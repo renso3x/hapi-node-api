@@ -4,8 +4,8 @@ require('dotenv').config();
 
 const Hapi = require('@hapi/hapi');
 
-const { configureAuth } = require('./plugins/auth');
-const { logger } = require('./plugins/logger');
+const { configureAuth } = require('./middlewares/auth');
+const { logger } = require('./middlewares/logger');
 const { configureRoutes } = require('./routes');
 
 const server = Hapi.server({

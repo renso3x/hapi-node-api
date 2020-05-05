@@ -1,5 +1,5 @@
 const Joi = require('@hapi/joi').extend(require('@hapi/joi-date'));
-const models = require('../../models');
+const models = require('../models');
 
 const Hotels = models.Hotels;
 const PeriodRoomRate = models.PeriodRoomRate;

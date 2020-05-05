@@ -1,4 +1,4 @@
-const models = require('../../models');
+const models = require('../models');
 const hotelChainHelper = require('../helpers/hotelChain');
 const userHelper = require('../helpers/userHelper');
 const requestHelper = require('../helpers/request');
