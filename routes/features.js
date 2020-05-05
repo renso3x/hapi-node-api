@@ -1,7 +1,7 @@
 const { roomFeatureValidator } = require('../helpers/rooms');
 const requestHelper = require('../helpers/request');
 
-const FeatureController = require('../controllers/features');
+const FeatureController = require('../controllers/Features');
 
 exports.roomFeatureRoutes = [
   {

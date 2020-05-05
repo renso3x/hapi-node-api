@@ -133,7 +133,7 @@ models.forEach(function(model) {
   m.RoomType.hasMany(m.RoomFeatures);
   m.RatePlan.hasMany(m.RateExtra);
 
-  m.RatePlan.hasMany(m.CustomRatePlan)
+  m.RatePlan.hasMany(m.CustomRatePlan);
 })(module.exports);
 
 module.exports.db = sequelize;

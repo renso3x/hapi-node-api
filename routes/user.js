@@ -16,7 +16,7 @@ exports.userRoutes = [{
     method: 'POST',
     path: '/users',
     options: {
-      // auth: false,
+      auth: false,
       validate: {
         payload: userHelper.userValidation
       }

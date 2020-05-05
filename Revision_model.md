@@ -1,14 +1,4 @@
-Hotel:
-  - has many rate plans
-    - Junior Suite
-    - Deluxe
-    - Superior
-
-  - rate plans has many room type
-    - Junior Suite
-      - Junior Suite w/ breakfast
-      - Junior Suite all inclusive
-
+====================================================================
 Models:
 
 [x]Rate Plan: Junior Suite (rate_plan)
@@ -49,21 +39,26 @@ Models:
   - rate: float
   - applied_on: date -> applicable on the date of purchase
 
+====================================================================
 Relationships:
 
-RatePlan => has many => RoomType
+m.RatePlan.hasMany(m.RoomType);
+m.RoomType.belongsTo(m.RatePlan, {
+  foreignKey: 'rate_plan',
+  as: 'rateplan'
+});
 
-RoomType => belongsTo => RatePlan
+m.RatePlan.hasOne(m.BedConfig);
 
-RatePlan => has many => Rate Plan Bed Config
+m.RatePlanBedConfig.belongsTo(m.BedConfig);
 
-Rate Plan Bed Config => belongsTo => BedConfiguration
+m.RoomType.hasMany(m.RoomFeatures);
+m.RatePlan.hasMany(m.RateExtra);
 
-RoomType => has many => RoomFeatures
+m.RatePlan.hasMany(m.CustomRatePlan)
 
-RatePlan => has many => Rate Extras (for max guest add-ons)
-
-
+====================================================================
 TODO:
+
 - Booking Invoice -> booking details, total price
 - Guest Details

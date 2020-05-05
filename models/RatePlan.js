@@ -1,7 +1,7 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   return sequelize.define('rate_plan', {
-    code: DataTypes.STRING,
+    code: DataTypes.STRING, //name
     inclusions: {
       type: DataTypes.ENUM('breakfast', 'lunch', 'dinner', 'all incusive'),
       allowNull: false
@@ -31,5 +31,7 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       defaultValue: 0,
     }
-  }, {});
+  }, {
+    tableName: 'rate_plan'
+  });
 };

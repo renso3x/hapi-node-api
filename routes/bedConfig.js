@@ -1,7 +1,7 @@
 const { bedValidator } = require('../helpers/rooms');
 const requestHelper = require('../helpers/request');
 
-const BedConfigController = require('../controllers/bedConfig');
+const BedConfigController = require('../controllers/BedConfig');
 
 exports.bedConfigRoutes = [
   {
