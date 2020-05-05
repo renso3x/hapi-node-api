@@ -65,7 +65,12 @@ const models = [
 
   // Refactor Model v2
   'RoomFeatures',
-  'BedConfig'
+  'BedConfig',
+  'RatePlan',
+  'RoomType',
+  'RatePlanBedConfig',
+  'RateExtra',
+  'CustomRatePlan'
 ];
 
 models.forEach(function(model) {
