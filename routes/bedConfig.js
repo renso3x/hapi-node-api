@@ -1,26 +1,44 @@
-const models = require('../models');
 const { bedValidator } = require('../helpers/rooms');
 const requestHelper = require('../helpers/request');
 
-const BedConfiguration = models.BedConfig;
+const BedConfigController = require('../controllers/bedConfig');
 
 exports.bedConfigRoutes = [
   {
     method: 'GET',
     path: '/beds',
-    handler: async () => {
-      return await BedConfiguration.findAll()
-    }
+    handler: BedConfigController.getAll
   }, {
     method: 'POST',
     path: '/beds',
     options: {
       validate: {
-        payload: bedValidator.validateRoomFeatures
+        payload: bedValidator.validatePayload
       }
     },
     handler: async (request) => {
-      return await BedConfiguration.create(request.payload);
+      const { payload } = request;
+
+      const bed = await BedConfigController.create(payload);
+
+      return bed;
+    }
+  }, {
+    method: 'GET',
+    path: '/beds/{bedId}',
+    options: {
+      validate: {
+        params: bedValidator.validateParams,
+      }
+    },
+    handler: async (request) => {
+      const { bedId } = request.params;
+
+      const bed = await BedConfigController.findOne(bedId);
+
+      if (!bed) return requestHelper.customError('Bed Config does\'nt exists.');
+
+      return bed;
     }
   }, {
     method: 'PUT',
@@ -32,10 +50,14 @@ exports.bedConfigRoutes = [
       }
     },
     handler: async (request) => {
-      const feature = await BedConfiguration.findOne({ where: { id: request.params.bedId }});
-      if (!feature) return requestHelper.customError('Bed does\'nt exists.');
+      const { bedId } = request.params;
+      const { payload } = request;
 
-      return feature.update(request.payload);
+      const { error, bed } = await BedConfigController.update(payload, bedId);
+
+      if (error) return requestHelper.customError('Bed Config does\'nt exists.');
+
+      return bed;
     }
   }, {
     method: 'DELETE',
@@ -46,10 +68,13 @@ exports.bedConfigRoutes = [
       }
     },
     handler: async (request) => {
-      const feature = await BedConfiguration.findOne({ where: { id: request.params.bedId }});
-      if (!feature) return requestHelper.customError('Bed does\'nt exists.');
+      const { bedId } = request.params;
 
-      return feature.destroy();
+      const { error, bed } = await BedConfigController.delete(bedId);
+
+      if (error) return requestHelper.customError('Bed Config exists.');
+
+      return bed;
     }
   }
 ]

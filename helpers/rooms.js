@@ -11,11 +11,11 @@ exports.roomFeatureValidator = {
 }
 
 exports.bedValidator = {
-  validateBed: Joi.object({
+  validatePayload: Joi.object({
     name: Joi.string().required(),
   }),
 
-  validateBedParams: Joi.object({
+  validateParams: Joi.object({
     bedId: Joi.number().required()
   })
 }
