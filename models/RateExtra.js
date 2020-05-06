@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('rate_extra', {
+  return sequelize.define('rateextra', {
     name: DataTypes.STRING,
     rate: DataTypes.FLOAT
   }, {});

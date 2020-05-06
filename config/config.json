@@ -2,7 +2,7 @@
   "development": {
     "username": "root",
     "password": "password",
-    "database": "api_hotels",
+    "database": "api_hotel",
     "host": "localhost",
     "dialect": "mysql",
     "port": 3306,

@@ -1,22 +1,51 @@
 const models = require('../models');
+const { RatePlan, RoomType } = models;
 
-const { RatePlan } = models;
+const RoomTypeController = require('./roomType');
 
-class RatePlanController {
+const RatePlanController = (function(args) {
+  let api = {
+    getAll,
+    create,
+    findOne,
+    update,
+    delete: deleteById,
+    getAllRoomTypes
+  };
 
-  async getAll() {
+  if (args.length > 0) {
+    // Map the dependency to the public method
+    args.map(di => {
+      api = Object.assign({}, api, di);
+    })
+
+    return api;
+  } else {
+    return api;
+  }
+
+  async function getAllRoomTypes(id) {
+    return await RatePlan.findAll({
+      where: {
+        id,
+      },
+      include: RoomType
+    });
+  }
+
+  async function getAll() {
     return await RatePlan.findAll();
   }
 
-  async create(payload) {
+  async function create(payload) {
     return await RatePlan.create(payload);
   }
 
-  async findOne(id) {
+  async function findOne(id) {
     return await RatePlan.findOne({ where: { id } });
   }
 
-  async update(data, id) {
+  async function update(data, id) {
     const ratePlan = await this.findOne(id);
 
     let response = { error: true };
@@ -31,7 +60,7 @@ class RatePlanController {
     return response
   }
 
-  async delete(id) {
+  async function deleteById(id) {
     const ratePlan = await this.findOne(id);
 
     let response = { error: true };
@@ -45,6 +74,6 @@ class RatePlanController {
 
     return response
   }
-}
+});
 
-module.exports = new RatePlanController();
+module.exports = RatePlanController([RoomTypeController]);

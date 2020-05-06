@@ -9,6 +9,7 @@ const { bedConfigRoutes } = require('./bedConfig');
 const { ratePlanRoutes } = require('./ratePlan');
 
 exports.configureRoutes = (server) => {
+
   return server.route([
     ...userRoutes,
     ...authenticateRoute,
@@ -17,6 +18,6 @@ exports.configureRoutes = (server) => {
     // Refactor
     ...roomFeatureRoutes,
     ...bedConfigRoutes,
-    ...ratePlanRoutes
+    ...ratePlanRoutes,
   ])
 }

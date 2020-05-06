@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('room_type', {
+    return queryInterface.createTable('roomtype', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -11,7 +11,7 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      rate_plan: {
+      ratePlanId: {
         type: Sequelize.INTEGER
       },
       description: {
@@ -28,6 +28,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('room_type');
+    return queryInterface.dropTable('roomtype');
   }
 };

@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
   up: (queryInterface, Sequelize) => {
-    return queryInterface.createTable('rate_plan_bed_config', {
+    return queryInterface.createTable('rateplanbedconfig', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -25,6 +25,6 @@ module.exports = {
     });
   },
   down: (queryInterface, Sequelize) => {
-    return queryInterface.dropTable('rate_plan_bed_config');
+    return queryInterface.dropTable('rateplanbedconfig');
   }
 };

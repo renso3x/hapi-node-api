@@ -13,3 +13,13 @@ exports.validatePayload = Joi.object().keys({
 exports.validateParams = Joi.object().keys({
   ratePlanId: Joi.number().required()
 })
+
+exports.validateRoomTypePayload = Joi.object().keys({
+  name: Joi.string().required(),
+  description: Joi.string()
+})
+
+exports.validateRoomTypeParams = Joi.object().keys({
+  ratePlanId: Joi.number().required(),
+  roomTypeId: Joi.number().required()
+})

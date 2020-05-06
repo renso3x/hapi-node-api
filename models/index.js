@@ -121,10 +121,7 @@ models.forEach(function(model) {
   // Revision Model
 
   m.RatePlan.hasMany(m.RoomType);
-  m.RoomType.belongsTo(m.RatePlan, {
-    foreignKey: 'rate_plan',
-    as: 'rateplan'
-  });
+  m.RoomType.belongsTo(m.RatePlan);
 
   m.RatePlan.hasOne(m.BedConfig);
 

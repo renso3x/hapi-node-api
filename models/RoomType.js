@@ -1,8 +1,10 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define('room_type', {
+  return sequelize.define('roomtype', {
     name: DataTypes.STRING,
-    rate_plan: DataTypes.INTEGER,
+    ratePlanId: DataTypes.INTEGER,
     description: DataTypes.STRING
-  }, {});
+  }, {
+    tableName: 'roomtype',
+  });
 };
