@@ -32,10 +32,10 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: 0,
     },
     roomTypeId: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
     },
     bedConfigId: {
-      type: Sequelize.INTEGER,
+      type: DataTypes.INTEGER,
     },
   }, {
     tableName: 'rateplan'

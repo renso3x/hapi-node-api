@@ -6,15 +6,6 @@ const PeriodRoomRate = models.PeriodRoomRate;
 const HotelRooms = models.HotelRooms;
 const Booking = models.Booking;
 
-exports.validateHotelPayload = Joi.object({
-  code: Joi.string(),
-  name: Joi.string().required(),
-  address: Joi.string().required(),
-  postcode: Joi.string(),
-  city: Joi.string(),
-  url: Joi.string()
-});
-
 exports.validateHotelRooms = Joi.object({
   roomNumber: Joi.number().required(),
   roomFloor: Joi.number(),
@@ -137,3 +128,22 @@ exports.findBookingById = async (request) => {
     where: { id: request.params.bookingId },
   });
 }
+
+// refactor v2
+exports.validateHotelUserPayload = Joi.object({
+  hotelId: Joi.number().required(),
+  userId: Joi.number().required()
+})
+
+exports.validateHotelPayload = Joi.object({
+  code: Joi.string(),
+  name: Joi.string().required(),
+  address: Joi.string().required(),
+  postcode: Joi.string(),
+  city: Joi.string(),
+  url: Joi.string()
+});
+
+exports.validateHotelParam = Joi.object({
+  hotelId: Joi.number().required(),
+})

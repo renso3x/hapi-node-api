@@ -18,6 +18,8 @@
 
 - Bed Configuration
 
+- HotelUsers
+
 Relationships
 
 Hotel has many RoomType
@@ -27,3 +29,7 @@ RoomTypes has many Rate Plans
 RoomType has many Amenities
 
 Rate Plans has one bed config
+
+Hotels has many Users
+Users belongsTo Hotel
+
