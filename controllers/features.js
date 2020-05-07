@@ -1,20 +1,30 @@
 const models = require('../models');
-const RoomFeatures = models.RoomFeatures;
+const { Amenities, RoomFeatures } = models;
 
-class FeatureController {
-  async getAll() {
+const FeatureController = (function() {
+  let api = {
+    getAll,
+    create,
+    findOne,
+    update,
+    delete: deleteById
+  };
+
+  return api;
+
+  async function getAll() {
     return await RoomFeatures.findAll()
   }
 
-  async create(data) {
+  async function create(data) {
     return await RoomFeatures.create(data);
   }
 
-  async findOne(id) {
+  async function findOne(id) {
     return await RoomFeatures.findOne({ where: { id }});
   }
 
-  async update(data, id) {
+  async function update(data, id) {
     const feature = await this.findOne(id);
 
     let response = { error: true };
@@ -29,7 +39,7 @@ class FeatureController {
     return response
   }
 
-  async delete(id) {
+  async function deleteById(id) {
     const feature = await this.findOne(id);
 
     let response = { error: true };
@@ -43,6 +53,6 @@ class FeatureController {
 
     return response
   }
-}
+})();
 
-module.exports = new FeatureController();
+module.exports = FeatureController;

@@ -52,25 +52,13 @@ sequelize.authenticate().then(function(err) {
 
 const models = [
   'User',
-  'HotelChains',
-  'HotelChainUser',
   'Hotels',
-  'HotelRooms',
-  'HotelRoomTypeRate',
-  'PeriodRoomRate',
-  'RoomRate',
-  'Guest',
-  'Booking',
-  'BookingDetails',
-
-  // Refactor Model v2
   'RoomFeatures',
   'BedConfig',
   'RatePlan',
   'RoomType',
-  'RatePlanBedConfig',
-  'RateExtra',
-  'CustomRatePlan'
+  'CustomRatePlan',
+  'Amenities'
 ];
 
 models.forEach(function(model) {
@@ -79,58 +67,6 @@ models.forEach(function(model) {
 
 // Relationships
 (function(m) {
-  m.User.hasOne(m.HotelChainUser);
-  m.HotelChainUser.belongsTo(m.User);
-
-  m.HotelChains.hasOne(m.HotelChainUser);
-  m.HotelChainUser.belongsTo(m.HotelChains);
-
-  m.Hotels.hasMany(m.HotelRooms);
-  m.HotelRooms.belongsTo(m.Hotels);
-
-  m.Hotels.hasMany(m.RoomRate);
-  m.RoomRate.belongsTo(m.Hotels);
-
-  m.RoomRate.hasMany(m.PeriodRoomRate);
-  m.PeriodRoomRate.belongsTo(m.RoomRate);
-
-  m.Hotels.hasMany(m.PeriodRoomRate);
-  m.PeriodRoomRate.belongsTo(m.Hotels);
-
-  m.HotelRooms.hasMany(m.HotelRoomTypeRate);
-
-  m.Booking.belongsTo(m.Guest, {
-    foreignKey: 'guestId'
-  })
-
-  m.Hotels.hasMany(m.Booking);
-
-  m.Booking.hasOne(m.BookingDetails);
-
-  m.Booking.belongsTo(m.HotelRoomTypeRate, {
-    foreignKey: 'roomTypeRateId'
-  });
-  m.HotelRoomTypeRate.belongsTo(m.PeriodRoomRate, {
-    foreignKey: 'periodRatePeriodId'
-  })
-  m.HotelRoomTypeRate.belongsTo(m.HotelRooms, {
-    foreignKey: 'hotelRoomId'
-  })
-
-
-  // Revision Model
-
-  m.RatePlan.hasMany(m.RoomType);
-  m.RoomType.belongsTo(m.RatePlan);
-
-  m.RatePlan.hasOne(m.BedConfig);
-
-  m.RatePlanBedConfig.belongsTo(m.BedConfig);
-
-  m.RoomType.hasMany(m.RoomFeatures);
-  m.RatePlan.hasMany(m.RateExtra);
-
-  m.RatePlan.hasMany(m.CustomRatePlan);
 })(module.exports);
 
 module.exports.db = sequelize;

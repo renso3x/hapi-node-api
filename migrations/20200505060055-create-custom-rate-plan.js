@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      rate_plan_id: {
+      roomTypeId: {
         type: Sequelize.INTEGER
       },
       rate: {

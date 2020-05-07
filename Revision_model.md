@@ -15,7 +15,7 @@ Models:
   - rate_plan: int
   - description: text
 
-[x] Room Features: (room_features)
+[x] Room Features: (room_feature)
   - room_type_id: int
   - feature_id: int (hotel_features_id)
   - default_rate: float -> this will be from the rate plan value if not supplied
@@ -42,7 +42,7 @@ Models:
 ====================================================================
 Relationships:
 
-m.RatePlan.hasMany(m.RoomType);
+m.RatePRoomTypelan.hasMany(m.RatePlan);
 m.RoomType.belongsTo(m.RatePlan, {
   foreignKey: 'rate_plan',
   as: 'rateplan'

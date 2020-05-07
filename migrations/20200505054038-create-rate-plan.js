@@ -8,7 +8,7 @@ module.exports = {
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      code: Sequelize.STRING,
+      name: Sequelize.STRING,
       inclusions: {
         type: Sequelize.ENUM('breakfast', 'lunch', 'dinner', 'all incusive'),
         allowNull: false
@@ -37,6 +37,12 @@ module.exports = {
         type: Sequelize.FLOAT,
         allowNull: false,
         defaultValue: 0,
+      },
+      roomTypeId: {
+        type: Sequelize.INTEGER,
+      },
+      bedConfigId: {
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,

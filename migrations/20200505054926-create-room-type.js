@@ -11,9 +11,6 @@ module.exports = {
       name: {
         type: Sequelize.STRING
       },
-      ratePlanId: {
-        type: Sequelize.INTEGER
-      },
       description: {
         type: Sequelize.STRING
       },

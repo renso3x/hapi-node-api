@@ -8,39 +8,22 @@
   - [x] POST /users/ - create user associated in a HotelChain
   - [x] UPDATE /users/{userId} - update user/suspend
 
-- [x] HotelChain
-  - [x] GET /hotel-chains - get all hotel chains
-  - [x] POST /hotel-chains - create a hotel chain
+- Hotel
 
-- [x] Hotels
-  - [x] GET /hotels - get all list of hotels
-  - [x] POST /hotels - create a hotels, associate with HotelChain
-  - [x] PUT /hotels/{hotelId} - update hotel details/ suspend
+- Room Type
 
-  - [x] HotelRoom
-    - [x] GET /hotels/rooms/ - get all rooms of a hotel
-    - [x] POST /hotels/rooms/ - create a room in a hotel, associate with RoomTypes
-    - [x] PUT /hotels/rooms/{roomId} - update a room/ suspend
+- Rate Plan
 
-  - RoomRate
-    - [x] GET /hotels/room-rates - get all room rates
-    - [x] POST /hotesls/room-rates - create a room rate
-    - [x] PUT /hotesls/room-rates/{roomRateId} - update a room rate
+- Rate Amenities
 
-  - RoomRatePeriods
-    - [x] GET /hotels/room-rate-periods - get all room rate periods
-    - [x] POST /hotels/room-rate-periods - create a room rate periods
-    - [x]PUT /hotels/room-rate-periods/{periodId} - update room rate period / suspend
+- Bed Configuration
 
-  - RoomTypes
-    - [x] GET /hotels/room-types/ - get room types
-    - [x] POST /hotels/room-types/ - create room type, associate with RoomRatePeriods
-    - [x] PUT /hotels/room-types/{roomTypeId} - update room type / suspend
+Relationships
 
-  - Guests
-    - [x] POST /hotels/guests - create guest for record purposes
+Hotel has many RoomType
 
-  - Bookings
-    - [x] GET /hotels/bookings - get all bookings in a hotel
-    - [x] POST /hotels/bookings - create a booking in a hotel, associate with Guests
-    - [x] PUT /hotels/bookings/{bookingId} - update a booking in a hotel/checkout/cancel
+RoomTypes has many Rate Plans
+
+RoomType has many Amenities
+
+Rate Plans has one bed config
