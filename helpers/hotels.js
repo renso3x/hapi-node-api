@@ -174,4 +174,17 @@ exports.validateRatePlanPayload = Joi.object({
   max_child: Joi.number(),
   default_rate: Joi.number(),
   bedConfigId: Joi.number(),
+});
+
+exports.validateRatePlanStayPayload = Joi.object({
+  min_nights: Joi.number().required(),
+  max_nights: Joi.number().required(),
+  applied_on: Joi.date(),
 })
+
+exports.validateRatePlanStayParams = Joi.object({
+  hotelId: Joi.number().required(),
+  roomTypeId: Joi.number().required(),
+  ratePlanId: Joi.number().required(),
+  stayId: Joi.number().required()
+});

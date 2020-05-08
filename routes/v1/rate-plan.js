@@ -1,7 +1,9 @@
 const {
   validateRatePlanParams,
   validateRoomTypeParams,
-  validateRatePlanPayload
+  validateRatePlanPayload,
+  validateRatePlanStayPayload,
+  validateRatePlanStayParams
 } = require('../../helpers/hotels');
 const { customError } = require('../../helpers/request');
 
@@ -93,5 +95,77 @@ module.exports = [{
     if (error) return customError('Cannot find room type or rate plan');
 
     return ratePlan;
+  }
+}, {
+  method: 'GET',
+  path: `${prefix}/rate-plans/{ratePlanId}/stay`,
+  options: {
+    validate: {
+      params: validateRatePlanParams,
+    }
+  },
+  handler: async (request) => {
+    const { error, ratePlan } = await RatePlanControllers.getAllRatePlanStay(request.params);
+
+    if (error) return customError('Cannot find room type or rate plan');
+
+    return ratePlan;
+  }
+}, {
+  method: 'POST',
+  path: `${prefix}/rate-plans/{ratePlanId}/stay`,
+  options: {
+    validate: {
+      params: validateRatePlanParams,
+      payload: validateRatePlanStayPayload
+    }
+  },
+  handler: async (request) => {
+    const bodyPayload = {
+      ...request.payload,
+      ratePlanId: request.params.ratePlanId,
+    }
+    const { error, stay } = await RatePlanControllers.createRatePlanStay(request.params, bodyPayload);
+
+    if (error) return customError('Cannot find room type or rate plan');
+
+    return stay;
+  }
+}, {
+  method: 'PUT',
+  path: `${prefix}/rate-plans/{ratePlanId}/stay/{stayId}`,
+  options: {
+    validate: {
+      params: validateRatePlanStayParams,
+      payload: validateRatePlanStayPayload
+    }
+  },
+  handler: async (request) => {
+    const bodyPayload = {
+      ...request.payload,
+      ratePlanId: request.params.ratePlanId,
+      stayId: request.params.stayId
+    };
+
+    const { error, stay } = await RatePlanControllers.updateRatePlanStay(request.params, bodyPayload);
+
+    if (error) return customError('Cannot find room type or rate plan');
+
+    return stay;
+  }
+}, {
+  method: 'DELETE',
+  path: `${prefix}/rate-plans/{ratePlanId}/stay/{stayId}`,
+  options: {
+    validate: {
+      params: validateRatePlanStayParams,
+    }
+  },
+  handler: async (request) => {
+    const { error, stay } = await RatePlanControllers.deleteRatePlanStay(request.params);
+
+    if (error) return customError('Cannot find room type or rate plan');
+
+    return stay;
   }
 }]

@@ -1,5 +1,5 @@
 const models = require('../models');
-const { RatePlan } = models;
+const { RatePlan, RatePlanStay } = models;
 
 const RoomTypeController = require('./RoomType');
 
@@ -9,7 +9,11 @@ module.exports = (() => {
     createRate,
     findRatePlan,
     updateRate,
-    deleteRatePlan
+    deleteRatePlan,
+    createRatePlanStay,
+    getAllRatePlanStay,
+    updateRatePlanStay,
+    deleteRatePlanStay
   };
 
   async function getAllRates({ params }) {
@@ -34,13 +38,14 @@ module.exports = (() => {
     return { error: false, newRate };
   }
 
-  async function findRatePlan(params) {
+  async function findRatePlan(params, models = []) {
     const response = await RoomTypeController.findRoomType(params);
 
     let ratePlan = await RatePlan.findOne({
       where: {
         id: params.ratePlanId
-      }
+      },
+      include: models
     });
 
     if (response.error || !ratePlan) return { error: true };
@@ -66,5 +71,54 @@ module.exports = (() => {
     const deletedRate = await ratePlan.destroy();
 
     return { error: false, ratePlan: deletedRate };
+  }
+
+  async function createRatePlanStay(params, payload) {
+    const { error } = await findRatePlan(params);
+
+    if (error) return { error: true };
+
+    const stay = await RatePlanStay.create(payload);
+
+    return { error: false, stay };
+  }
+
+  async function getAllRatePlanStay(params) {
+    const { error, ratePlan } = await findRatePlan(params, [
+      { model: RatePlanStay }
+    ]);
+
+    if (error) return { error: true };
+
+    return { error: false, ratePlan }
+  }
+
+  async function updateRatePlanStay(params, payload) {
+    const { error } = await findRatePlan(params);
+
+    let ratePlanStay = await RatePlanStay.findOne({ where: {
+      id: params.stayId
+    }});
+
+    if (error || !ratePlanStay) return { error: true };
+
+    const updatedRatePlanStay = await ratePlanStay.update(payload);
+
+    return { error: false, stay: updatedRatePlanStay };
+  }
+
+  async function deleteRatePlanStay(params) {
+    const { error } = await findRatePlan(params);
+
+    let ratePlanStay = await RatePlanStay.findOne({ where: {
+      id: params.stayId
+    }});
+
+    if (error || !ratePlanStay) return { error: true };
+
+    const deleteStay = await ratePlanStay.destroy();
+
+    return { error: false, stay: deleteStay };
+
   }
 })();
