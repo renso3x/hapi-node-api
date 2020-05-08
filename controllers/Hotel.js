@@ -8,7 +8,8 @@ module.exports = (() => {
     createHotel,
     findHotelById,
     createHotelUser,
-    getAllHotelUsers
+    getAllHotelUsers,
+    findAssocitation
   };
 
   async function getAll() {
@@ -19,8 +20,22 @@ module.exports = (() => {
     return await Hotels.create(payload)
   }
 
-  async function findHotelById(hotelId) {
-    return await Hotels.findOne({ where: { id: hotelId }});
+  async function findHotelById(hotelId, model) {
+    const hotel = await Hotels.findOne({
+      where: { id: hotelId },
+      include: model
+    });
+
+    if (!hotel) return { error: true };
+
+    return { error: false, hotel };;
+  }
+
+  async function findAssocitation(hotelId, models) {
+    return await Hotels.findOne({
+      where: { id: hotelId },
+      include: models
+    });
   }
 
   async function getAllHotelUsers(hotelId) {
@@ -35,8 +50,6 @@ module.exports = (() => {
         },
       ]
     })
-
-
   }
 
   async function createHotelUser(payload) {

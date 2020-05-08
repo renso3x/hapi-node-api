@@ -69,6 +69,8 @@ models.forEach(function(model) {
 (function(m) {
   m.Hotels.hasMany(m.HotelUsers);
   m.HotelUsers.belongsTo(m.User);
+
+  m.Hotels.hasMany(m.RoomType);
 })(module.exports);
 
 module.exports.db = sequelize;

@@ -8,6 +8,7 @@ const { bedConfigRoutes } = require('./bedConfig');
 const { ratePlanRoutes } = require('./ratePlan');
 
 const hotelRoute = require('./v1/hotel');
+const roomTypeRoute = require('./v1/room-type');
 
 exports.configureRoutes = (server) => {
 
@@ -22,5 +23,6 @@ exports.configureRoutes = (server) => {
 
     // Refactor
     ...hotelRoute,
+    ...roomTypeRoute
   ])
 }

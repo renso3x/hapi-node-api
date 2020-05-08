@@ -1,7 +1,7 @@
 const {
   validateHotelUserPayload,
   validateHotelPayload,
-  validateHotelParam
+  validateHotelParam,
 } = require('../../helpers/hotels');
 const { customError } = require('../../helpers/request');
 const HotelController = require('../../controllers/Hotel');
@@ -21,7 +21,7 @@ module.exports = [{
   handler: async (request) => {
     return await HotelController.createHotel(request.payload);
   }
-}, {
+},  {
   method: 'GET',
   path: '/hotels/{hotelId}/users',
   options: {
@@ -31,6 +31,21 @@ module.exports = [{
   },
   handler: async (request) => {
     return await HotelController.getAllHotelUsers(request.params.hotelId);
+  }
+}, {
+  method: 'GET',
+  path: '/hotels/{hotelId}',
+  options: {
+    validate: {
+      params: validateHotelParam,
+    }
+  },
+  handler: async (request) => {
+    const { error, hotel } = await HotelController.findHotelById(request.params.hotelId);
+
+    if (error) return customError(`Sorry, cannot find hotel `);
+
+    return hotel;
   }
 }, {
   method: 'POST',

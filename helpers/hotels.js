@@ -147,3 +147,13 @@ exports.validateHotelPayload = Joi.object({
 exports.validateHotelParam = Joi.object({
   hotelId: Joi.number().required(),
 })
+
+exports.validateRoomTypePayload = Joi.object({
+  name: Joi.string().required(),
+  description: Joi.string()
+});
+
+exports.validateRoomTypeParams = Joi.object({
+  hotelId: Joi.number().required(),
+  roomTypeId: Joi.number().required(),
+});

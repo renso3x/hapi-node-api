@@ -1,52 +1,62 @@
 const models = require('../models');
-
 const { RoomType } = models;
+const HotelController = require('./Hotel');
 
-const RoomTypeController = (function() {
+module.exports = (() => {
   return {
-    createRoomType,
-    findRoomTypeById,
+    getRoomTypes,
+    create,
+    findRoomType,
     updateRoomType,
     deleteRoomType
-  };
+  }
 
-  async function createRoomType(payload) {
+  async function getRoomTypes(hotelId) {
+    const roomTypes = await HotelController.findAssocitation(hotelId, [
+      { model: RoomType }
+    ]);
+
+    if (!roomTypes) return { error: true };
+
+    return { error: false, roomTypes };
+  }
+
+  async function create(payload) {
     return await RoomType.create(payload);
   }
 
-  async function findRoomTypeById(id) {
-    return await RoomType.findOne({ where: { id } });
+  async function findRoomType({ roomTypeId, hotelId }) {
+    const { error, hotel } = await HotelController.findHotelById(hotelId, [
+      {
+        model: RoomType,
+        where: {
+          id: roomTypeId
+        }
+      }
+    ]);
+
+    if (error) return { error: true };
+
+    return { error: false, roomType: hotel.roomtypes[0] };
   }
 
-  async function updateRoomType(payload, id) {
-    const roomType = await findRoomTypeById(id);
+  async function updateRoomType({ params, payload }) {
+    let roomType = await RoomType.findOne({ where: { id: params.roomTypeId }});
 
-    let response = { error: true };
+    if (!roomType) return { error: true };
 
-    if (roomType) {
-      response.error = false;
-      response.roomType = await roomType.update(payload);
+    roomType = await roomType.update(payload);
 
-      return response;
-    }
-
-    return response
+    return { error: false, roomType };
   }
 
-  async function deleteRoomType(id) {
-    const roomType = await findRoomTypeById(id);
+  async function deleteRoomType({ params }) {
+    let roomType = await RoomType.findOne({ where: { id: params.roomTypeId }});
 
-    let response = { error: true };
+    if (!roomType) return { error: true };
 
-    if (roomType) {
-      response.error = false;
-      response.roomType = await roomType.destroy();
+    roomType = await roomType.destroy();
 
-      return response;
-    }
-
-    return response
+    return { error: false, roomType };
   }
 })();
-
-module.exports = RoomTypeController;
