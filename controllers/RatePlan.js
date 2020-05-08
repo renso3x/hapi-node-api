@@ -1,79 +1,70 @@
 const models = require('../models');
-const { RatePlan, RoomType } = models;
+const { RatePlan } = models;
 
-const RoomTypeController = require('./roomType');
+const RoomTypeController = require('./RoomType');
 
-const RatePlanController = (function(args) {
-  let api = {
-    getAll,
-    create,
-    findOne,
-    update,
-    delete: deleteById,
-    getAllRoomTypes
+module.exports = (() => {
+  return {
+    getAllRates,
+    createRate,
+    findRatePlan,
+    updateRate,
+    deleteRatePlan
   };
 
-  if (args.length > 0) {
-    // Map the dependency to the public method
-    args.map(di => {
-      api = Object.assign({}, api, di);
-    })
+  async function getAllRates({ params }) {
+    const response = await RoomTypeController.findRoomType(params, [{
+      model: RatePlan
+    }]);
 
-    return api;
-  } else {
-    return api;
+    if (response.error && !response.roomType) return { error: true };
+
+    return { error: false, ratePlans: response.roomType.rateplans }
   }
 
-  async function getAllRoomTypes(id) {
-    return await RatePlan.findAll({
+  async function createRate(params, payload) {
+    const { error } = await RoomTypeController.findRoomType(params, [{
+      model: RatePlan
+    }]);
+
+    if (error) return { error: true };
+
+    const newRate = await RatePlan.create(payload);
+
+    return { error: false, newRate };
+  }
+
+  async function findRatePlan(params) {
+    const response = await RoomTypeController.findRoomType(params);
+
+    let ratePlan = await RatePlan.findOne({
       where: {
-        id,
-      },
-      include: RoomType
+        id: params.ratePlanId
+      }
     });
+
+    if (response.error || !ratePlan) return { error: true };
+
+    return { error: false, ratePlan };
   }
 
-  async function getAll() {
-    return await RatePlan.findAll();
+  async function updateRate(params, payload) {
+    const { error, ratePlan } = await findRatePlan(params);
+
+    if (error) return { error: true };
+
+    const updatedRate = await ratePlan.update(payload);
+
+    return { error: false, ratePlan: updatedRate };
   }
 
-  async function create(payload) {
-    return await RatePlan.create(payload);
+  async function deleteRatePlan(params) {
+    const { error, ratePlan } = await findRatePlan(params);
+
+    if (error) return { error: true };
+
+    const deletedRate = await ratePlan.destroy();
+
+    return { error: false, ratePlan: deletedRate };
   }
-
-  async function findOne(id) {
-    return await RatePlan.findOne({ where: { id } });
-  }
-
-  async function update(data, id) {
-    const ratePlan = await this.findOne(id);
-
-    let response = { error: true };
-
-    if (ratePlan) {
-      response.error = false;
-      response.ratePlan = await ratePlan.update(data);
-
-      return response;
-    }
-
-    return response
-  }
-
-  async function deleteById(id) {
-    const ratePlan = await this.findOne(id);
-
-    let response = { error: true };
-
-    if (ratePlan) {
-      response.error = false;
-      response.ratePlan = await ratePlan.destroy();
-
-      return response;
-    }
-
-    return response
-  }
-});
-
-module.exports = RatePlanController([RoomTypeController]);
+})();

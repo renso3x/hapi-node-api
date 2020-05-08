@@ -5,6 +5,7 @@ const Hotels = models.Hotels;
 const PeriodRoomRate = models.PeriodRoomRate;
 const HotelRooms = models.HotelRooms;
 const Booking = models.Booking;
+const RatePlan = models.RatePlan;
 
 exports.validateHotelRooms = Joi.object({
   roomNumber: Joi.number().required(),
@@ -157,3 +158,20 @@ exports.validateRoomTypeParams = Joi.object({
   hotelId: Joi.number().required(),
   roomTypeId: Joi.number().required(),
 });
+
+exports.validateRatePlanParams = Joi.object({
+  hotelId: Joi.number().required(),
+  roomTypeId: Joi.number().required(),
+  ratePlanId: Joi.number().required()
+});
+
+exports.validateRatePlanPayload = Joi.object({
+  name: Joi.string().required(),
+  inclusions: Joi.string().valid('breakfast', 'lunch', 'dinner', 'all incusive'),
+  min_adult: Joi.number(),
+  max_adult: Joi.number(),
+  min_child: Joi.number(),
+  max_child: Joi.number(),
+  default_rate: Joi.number(),
+  bedConfigId: Joi.number(),
+})

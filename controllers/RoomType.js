@@ -1,3 +1,4 @@
+const _ = require('lodash');
 const models = require('../models');
 const { RoomType } = models;
 const HotelController = require('./Hotel');
@@ -25,13 +26,14 @@ module.exports = (() => {
     return await RoomType.create(payload);
   }
 
-  async function findRoomType({ roomTypeId, hotelId }) {
+  async function findRoomType({ roomTypeId, hotelId }, findAssociation = []) {
     const { error, hotel } = await HotelController.findHotelById(hotelId, [
       {
         model: RoomType,
         where: {
           id: roomTypeId
-        }
+        },
+        include: findAssociation
       }
     ]);
 
