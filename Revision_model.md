@@ -62,3 +62,11 @@ TODO:
 
 - Booking Invoice -> booking details, total price
 - Guest Details
+
+- BOOKING
+  - hotelId
+  - ratePlanId
+  - guestId
+  - dateFrom
+  - dateTo
+

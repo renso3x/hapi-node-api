@@ -188,3 +188,10 @@ exports.validateRatePlanStayParams = Joi.object({
   ratePlanId: Joi.number().required(),
   stayId: Joi.number().required()
 });
+
+exports.validateHotelGuestPayload = Joi.object({
+  name: Joi.string().required(),
+  email: Joi.string().email().required(),
+  contactNumber: Joi.string(),
+  address: Joi.string(),
+});
