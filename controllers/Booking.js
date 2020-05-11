@@ -8,6 +8,24 @@ module.exports = (() => {
   return {
     getAllBookings,
     createbooking,
+    findBooking
+  }
+
+  async function findBooking({ params }) {
+    const booking = await Booking.findOne({
+      where: {
+        hotelId: params.hotelId,
+        id: params.bookingId
+      },
+      include: [
+        Guest,
+        RatePlan
+      ]
+    });
+
+    if (!booking) return { error: true };
+
+    return { error: false, booking };
   }
 
   async function getAllBookings({ params }) {
@@ -15,10 +33,6 @@ module.exports = (() => {
       where: {
         hotelId: params.hotelId
       },
-      include: [
-        Guest,
-        RatePlan
-      ]
     });
   }
 

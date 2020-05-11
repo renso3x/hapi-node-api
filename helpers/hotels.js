@@ -202,3 +202,8 @@ exports.validateHotelBookingPayload = Joi.object({
   dateFrom: Joi.date().required(),
   dateTo: Joi.date().required()
 })
+
+exports.validateBookingParams = Joi.object({
+  hotelId: Joi.number().required(),
+  bookingId: Joi.number().required(),
+})

@@ -1,8 +1,9 @@
 const {
   validateHotelParam,
-  validateHotelBookingPayload
+  validateHotelBookingPayload,
+  validateBookingParams
 } = require('../../helpers/hotels');
-const { notFound, customError } = require('../../helpers/request');
+const { customError } = require('../../helpers/request');
 const BookingController = require('../../controllers/Booking');
 
 const prefix = '/hotels/{hotelId}';
@@ -31,6 +32,21 @@ module.exports = [{
     const { error, booking } = await BookingController.createbooking(request);
 
     if (error) return customError('Hotel not found');
+
+    return booking;
+  }
+},  {
+  method: 'GET',
+  path: `${prefix}/bookings/{bookingId}`,
+  options: {
+    validate: {
+      params: validateBookingParams,
+    }
+  },
+  handler: async(request) => {
+    const { error, booking } = await BookingController.findBooking(request);
+
+    if (error) return customError('Booking not found');
 
     return booking;
   }
