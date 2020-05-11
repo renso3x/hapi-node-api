@@ -195,3 +195,10 @@ exports.validateHotelGuestPayload = Joi.object({
   contactNumber: Joi.string(),
   address: Joi.string(),
 });
+
+exports.validateHotelBookingPayload = Joi.object({
+  ratePlanId: Joi.number().required(),
+  guestId: Joi.number().required(),
+  dateFrom: Joi.date().required(),
+  dateTo: Joi.date().required()
+})

@@ -87,8 +87,6 @@ models.forEach(function(model) {
 
   m.Guest.hasMany(m.Booking);
   m.Booking.belongsTo(m.Guest);
-
-  m.Hotels.hasMany(m.Guest)
 })(module.exports);
 
 module.exports.db = sequelize;
