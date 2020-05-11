@@ -9,6 +9,7 @@ const hotelRoute = require('./v1/hotel');
 const roomTypeRoute = require('./v1/room-type');
 const ratePlanRoute = require('./v1/rate-plan');
 const guestRoute = require('./v1/guest');
+const bookingsRoute = require('./v1/booking');
 
 exports.configureRoutes = (server) => {
 
@@ -23,6 +24,7 @@ exports.configureRoutes = (server) => {
     ...hotelRoute,
     ...roomTypeRoute,
     ...ratePlanRoute,
-    ...guestRoute
+    ...guestRoute,
+    ...bookingsRoute
   ])
 }
