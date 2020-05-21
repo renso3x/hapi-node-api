@@ -4,7 +4,7 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     description: DataTypes.STRING,
     hotelId: DataTypes.INTEGER,
-    rates: DataTypes.INTEGER,
+    rate: DataTypes.INTEGER,
   }, {
     tableName: 'roomtype',
   });
