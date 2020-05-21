@@ -5,6 +5,9 @@ const models = require('../models');
 const userHelper = require('./userHelper');
 
 const User = models.User;
+const HotelUsers = models.HotelUsers;
+const Hotels = models.Hotels;
+
 const JWT_KEY = process.env.JWT_KEY;
 
 exports.login = async (email, password) => {
@@ -12,12 +15,21 @@ exports.login = async (email, password) => {
 
   if (!isExist) return Boom.notFound();
 
-  const user = await User.findAll({
-    where: { email },
+  const user = await User.findOne({
+    where: {
+      email
+    },
     raw: true,
   });
 
-  const isValid = await bcrypt.compare(password, user[0].password);
+  const hotelUsers = await HotelUsers.findAll({
+    where: { id: user.id },
+    include: [
+      Hotels
+    ]
+  });
+
+  const isValid = await bcrypt.compare(password, user.password);
 
   if (!isValid) return Boom.badRequest('Invalid login credentials.');
 
@@ -25,7 +37,7 @@ exports.login = async (email, password) => {
 
   const token = makeJWTSignToken(credentials);
 
-  return { token };
+  return { token, hotel: hotelUsers.map(h => h.hotel) };
 }
 
 const makeJWTSignToken = (credentials) => jwt.sign(credentials, JWT_KEY, { algorithm: 'HS256', expiresIn: '7d' });
