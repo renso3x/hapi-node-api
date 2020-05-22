@@ -1,6 +1,6 @@
 const _ = require('lodash');
 const models = require('../models');
-const { RoomType } = models;
+const { RoomType, RatePlan } = models;
 const HotelController = require('./Hotel');
 
 module.exports = (() => {
@@ -13,13 +13,16 @@ module.exports = (() => {
   }
 
   async function getRoomTypes(hotelId) {
-    const roomTypes = await HotelController.findAssocitation(hotelId, [
-      { model: RoomType }
+    const hotel = await HotelController.findAssocitation(hotelId, [
+      {
+        model: RoomType,
+        include: [RatePlan]
+      }
     ]);
 
-    if (!roomTypes) return { error: true };
+    if (!hotel) return { error: true };
 
-    return { error: false, roomTypes };
+    return { error: false, roomTypes: hotel.roomtypes };
   }
 
   async function create(payload) {
