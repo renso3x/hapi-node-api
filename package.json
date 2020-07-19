@@ -20,7 +20,7 @@
     "hapi-auth-jwt2": "salzhrani/hapi-auth-jwt2#v-17",
     "jsonwebtoken": "^8.5.1",
     "laabr": "^6.0.2",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "moment": "^2.24.0",
     "mysql2": "^2.1.0",
     "nodemon": "^2.0.2",
